@@ -1,0 +1,20 @@
+{
+  "name": "steam-team",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-boost": "^0.1.27",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "node-fetch": "^2.3.0",
+    "react-apollo": "^2.4.1"
+  }
+}
