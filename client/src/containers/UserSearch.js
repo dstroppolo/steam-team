@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import '../styles/UserSearch.css';
 import { Query } from 'react-apollo';
-import { getFriendsQuery, getGamesQuery } from '../queries';
-
-import unknownAvatar from '../styles/unknown-avatar.jpg';
-
+import { getUserQuery } from '../queries';
 import { Input, Image, Button, Form } from 'semantic-ui-react';
 
 import FriendsList from './FriendsList';
+import UserInfo from '../components/UserInfo';
 
 class UserSearch extends Component {
 
@@ -36,24 +34,19 @@ class UserSearch extends Component {
     
             <div className="userBox">
 
-                <Query query = { getFriendsQuery } variables={{steamid:this.state.search}}>
+                <Query query = { getUserQuery } variables={{steamid: this.state.search}}>
                     {({ loading, error, data}) => {
-                        if(loading) return <Loader active>Loading</Loader>
-                        if(error) return ( <Message negative>
-                                                <Message.Header>Could not find a user with that steam ID</Message.Header>
-                                            </Message>)
-
-                
-                        
-                        return (
-                            <List selection animated verticalAlign='middle' relaxed divided>
-                                { this.renderUserCards(data.friends) }
-                            </List>
-                        )
-            
+                        if(error) alert(error)
+                        if(data.user){
+                            return (
+                                <UserInfo personaName = {data.user.personaname} avatarUrl = {data.user.avatarfull} />
+                            )
+                        }
+                        return <UserInfo />
                     }}  
-
                 </Query>
+                
+
                 <div className="searchBox">
                     <Form>
                         <Form.Input 
