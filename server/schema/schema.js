@@ -40,6 +40,16 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+
+        user: {
+            type: UserType,
+            args: {steamid: {type: GraphQLString} },
+            async resolve(parent, args){
+                const user = await fetch(`${baseUrl}/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${args.steamid}`)
+                const userData = await user.json();
+                return userData.response.players[0];
+            }
+        },
         games: {
             type: new GraphQLList(GameType),
             args: { steamid: {type: GraphQLString } },
@@ -58,8 +68,9 @@ const RootQuery = new GraphQLObjectType({
                 const idString = friendsList.friendslist.friends.map( friend => friend.steamid).toString();
 
                 const users = await fetch(`${baseUrl}/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${idString}`)
-                const userProfiles = await users.json();
-                return userProfiles.response.players;
+                let userProfiles = await users.json();
+                userProfiles = userProfiles.response.players;
+                return userProfiles;
             }
         }
     }
