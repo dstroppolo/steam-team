@@ -15,7 +15,7 @@ class UserInfo extends Component {
 		return (
             <div>
                 <div className="userAvatar">
-                    <Image src={this.props.avatarUrl || unknownAvatar} fluid />
+                    <Image src={this.props.avatarUrl || unknownAvatar} fluid centered style={{width:"184px"}} />
                 </div>
                 <div className="userName">
                     <h2>{ this.props.personaName }</h2>

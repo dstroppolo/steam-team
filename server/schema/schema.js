@@ -65,11 +65,23 @@ const RootQuery = new GraphQLObjectType({
             async resolve(parent, args){
                 const friends = await fetch(`${baseUrl}/ISteamUser/GetFriendList/v0001/?key=${apiKey}&steamid=${args.steamid}&relationship=friend`);
                 const friendsList = await friends.json();
-                const idString = friendsList.friendslist.friends.map( friend => friend.steamid).toString();
+                let idString = friendsList.friendslist.friends.map( friend => friend.steamid).toString();
+
+                //get the person searchings info too and stick it in front because 
+                idString = `${args.steamid},${idString}`;
 
                 const users = await fetch(`${baseUrl}/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${idString}`)
                 let userProfiles = await users.json();
                 userProfiles = userProfiles.response.players;
+
+                //get the person searching and put them first
+                let indexOfSearcher = userProfiles.map( u => u.steamid ).indexOf(args.steamid);
+
+                let temp = userProfiles[indexOfSearcher];
+
+                userProfiles[indexOfSearcher] = userProfiles[0];
+                userProfiles[0] = temp;
+
                 return userProfiles;
             }
         }

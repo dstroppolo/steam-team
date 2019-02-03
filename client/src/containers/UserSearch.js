@@ -12,8 +12,6 @@ class UserSearch extends Component {
     constructor(props){
         super(props);
         this.state = {
-            personaName: '---',
-            avatarUrl: '',
             searchInput: '',
             search: '',
             showFriendsList: false
@@ -25,10 +23,6 @@ class UserSearch extends Component {
         await this.setState({search: this.state.searchInput, showFriendsList: true});
     }
 
-    setName = personaName => {
-        this.setState({personaName:personaName})
-    }
-
     render() {
         return (
     
@@ -36,7 +30,6 @@ class UserSearch extends Component {
 
                 <Query query = { getUserQuery } variables={{steamid: this.state.search}}>
                     {({ loading, error, data}) => {
-                        if(error) alert(error)
                         if(data.user){
                             return (
                                 <UserInfo personaName = {data.user.personaname} avatarUrl = {data.user.avatarfull} />
@@ -46,7 +39,6 @@ class UserSearch extends Component {
                     }}  
                 </Query>
                 
-
                 <div className="searchBox">
                     <Form>
                         <Form.Input 
@@ -64,13 +56,25 @@ class UserSearch extends Component {
                 
                 {this.state.showFriendsList &&
                     <div className="friendsList">
-                        <FriendsList steamid = {this.state.search} setName={this.setName} />
+                        <FriendsList 
+                            steamid = {this.state.search} 
+                            setActiveFriend={this.props.setActiveFriend}
+                            setActiveSelf={this.props.setActiveSelf}
+                        />
                     </div>
                 }
 
                 {this.state.showFriendsList &&
                     <div style={{paddingTop: '15px'}}>
-                        <Button disabled on>Find Games</Button>
+                        <Button 
+                            disabled={ this.props.numberActiveFriends < 1 } 
+                            onClick = { () => this.props.setShowSearch(false) } 
+
+                        >
+                            
+                            
+                            Find Games       
+                        </Button>
                     </div>
                 }
 

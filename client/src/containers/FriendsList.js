@@ -5,9 +5,6 @@ import { Loader, Dimmer } from 'semantic-ui-react';
 import { List, Message } from 'semantic-ui-react';
 import UserCard from '../components/UserCard';
 
-
-
-
 class FriendsList extends Component {
 
 	constructor(props){
@@ -19,11 +16,11 @@ class FriendsList extends Component {
 
 	renderUserCards = data => {
 		let users = data.map( (user, i) => {
-			return i > 0 && <UserCard {...user} key={i} index={i} />
+			return <UserCard {...user} key={i} index={i} setActiveFriend={this.props.setActiveFriend} />
 		})
 		return users;
 	}
-	
+
 	render(){
 		
 		return(

@@ -8,6 +8,12 @@ const getFriendsQuery = gql`
             avatar
             avatarfull
             lastlogoff
+            games{
+                appid
+                name
+                img_logo_url
+                playtime_forever
+            }
         }
     }
 `;

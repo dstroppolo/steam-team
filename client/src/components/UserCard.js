@@ -12,7 +12,7 @@ class UserCard extends Component {
 	
 	render() {
 		return (
-			<List.Item onClick = { () => this.setState({border: !this.state.border})} style={{border: this.state.border ? "2px solid limegreen": "", background: this.props.index % 2 === 0 ? "#19435B" : "#1C4863"}}>
+			<List.Item onClick = { async () => { await this.setState({border: !this.state.border}); this.props.setActiveFriend(this.props) } } style={{border: this.state.border ? "2px solid limegreen": "", background: this.props.index % 2 === 0 ? "#19435B" : "#1C4863"}}>
 				<Image avatar src={this.props.avatar} />
 				<List.Content >
 					<List.Header  style={{color: "#f4f4f4"}}>{this.props.personaname}</List.Header>
