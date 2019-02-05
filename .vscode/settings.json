@@ -1,0 +1,7 @@
+{
+    "appService.deploySubpath": "",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/61075264-dc1a-45aa-ab29-9ff80a2cc706/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/steam-team"
+}
