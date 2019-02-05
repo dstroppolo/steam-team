@@ -17,4 +17,4 @@ app.use('/api', graphqlHTTP({
     graphiql: true
 }));
 
-app.listen(4000, () => console.log('listening on port 4000') );
+app.listen(process.env.PORT || 3000, () => console.log('listening on port 4000') );
