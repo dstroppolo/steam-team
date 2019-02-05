@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { List, Image, Button } from 'semantic-ui-react';
-import ReactTooltip from 'react-tooltip'
 
 class GameCard extends Component {
 
